@@ -19,6 +19,8 @@ Repository goal:
   - Windows and Linux support via `memflow` connectors.
 - **Structured output**
   - produces `json`, `hpp`, `cs`, `rs`, and `zig` artifacts by default.
+- **Drop-in compatible offsets**
+  - the generated JSON keys match common external consumer layouts and are ready for integration with projects like [`Enoouo/Pro-CS2_DMA`](https://github.com/Enoouo/Pro-CS2_DMA).
 - **CI-ready**
   - GitHub Actions workflow for build/release packaging.
 
@@ -57,6 +59,7 @@ The dumper writes multiple formats for different consumers:
 - `cs` — C# classes/consts
 - `rs` — Rust const modules
 - `zig` — Zig source
+- `json` (`offsets.json`) fields map 1:1 to `dw` patterns used by many CS2 tooling projects, including [`Enoouo/Pro-CS2_DMA`](https://github.com/Enoouo/Pro-CS2_DMA).
 
 ### Example structure (JSON)
 
