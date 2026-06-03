@@ -1,6 +1,6 @@
-# Current CS2 Offsets
+# CS2 Current OFFSETS and Self-Dump Option!
 
-**Current CS2 Offsets** is a modern, reproducible CS2 offset collection project.
+**CS2 Current OFFSETS and Self-Dump Option!** is a modern, reproducible CS2 offset collection project.
 It provides a command-line dumper that reads live game memory through `memflow` and exports clean, parser-friendly
 offset artifacts in one command.
 
@@ -27,7 +27,7 @@ Repository goal:
 ## Quick Start
 
 ### 1) Download or build locally
-- Download a built binary from [GitHub Releases](https://github.com/YOUR_GITHUB_USERNAME/current-cs2-offsets/releases) (once published).
+- Download a built binary from [GitHub Releases](https://github.com/YOUR_GITHUB_USERNAME/cs2-current-offsets-and-self-dump-option/releases) (once published).
 - Or build from source with Rust 1.74.0+.
 
 ### 2) Run

@@ -1,10 +1,10 @@
 [package]
-name = "current-cs2-offsets"
+name = "cs2-current-offsets-self-dump-option"
 version = "0.1.3"
-authors = ["current-cs2-offsets contributors"]
+authors = ["cs2-current-offsets-self-dump-option contributors"]
 edition = "2024"
 readme = "README.md"
-repository = "https://github.com/<owner>/current-cs2-offsets"
+repository = "https://github.com/<owner>/cs2-current-offsets-and-self-dump-option"
 license = "MIT"
 
 [dependencies]
