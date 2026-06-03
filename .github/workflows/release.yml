@@ -28,14 +28,14 @@ jobs:
 
       - name: Prepare Windows bundle
         run: |
-          New-Item -ItemType Directory -Force -Path win-x64
-          Copy-Item target/release/cs2-dumper.exe -Destination win-x64/
+          New-Item -ItemType Directory -Force -Path SELF OFFSET DUMPER
+          Copy-Item target/release/cs2-dumper.exe -Destination SELF OFFSET DUMPER/
         shell: powershell
 
       - name: Create distributable archive
         run: |
           New-Item -ItemType Directory -Force -Path publish
-          Copy-Item win-x64/* -Destination publish/ -Recurse -Force
+          Copy-Item SELF OFFSET DUMPER/* -Destination publish/ -Recurse -Force
           Compress-Archive -Path publish/* -DestinationPath publish/current-cs2-offsets-windows.zip
         shell: powershell
 

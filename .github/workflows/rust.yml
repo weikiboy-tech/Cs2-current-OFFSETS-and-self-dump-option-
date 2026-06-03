@@ -31,12 +31,12 @@ jobs:
 
       - name: Prepare Windows artifact folder
         run: |
-          New-Item -ItemType Directory -Force -Path win-x64
-          Copy-Item target/release/cs2-dumper.exe -Destination win-x64/
+          New-Item -ItemType Directory -Force -Path SELF OFFSET DUMPER
+          Copy-Item target/release/cs2-dumper.exe -Destination SELF OFFSET DUMPER/
         shell: powershell
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: current-cs2-offsets-windows
-          path: win-x64
+          path: SELF OFFSET DUMPER
