@@ -7,6 +7,10 @@ readme = "README.md"
 repository = "https://github.com/<owner>/cs2-current-offsets-and-self-dump-option"
 license = "MIT"
 
+[[bin]]
+name = "cs2-dumper"
+path = "src/main.rs"
+
 [dependencies]
 anyhow = "1.0"
 clap = { version = "4.5", features = ["derive"] }
