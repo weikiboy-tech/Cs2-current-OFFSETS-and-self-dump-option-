@@ -1,53 +1,99 @@
-# cs2-dumper
+# Current CS2 Offsets
 
-An external offset/interface dumper for Counter-Strike 2, with support for both Windows & Linux. Powered
-by [memflow](https://github.com/memflow/memflow).
+**Current CS2 Offsets** is a modern, reproducible CS2 offset collection project.
+It provides a command-line dumper that reads live game memory through `memflow` and exports clean, parser-friendly
+offset artifacts in one command.
 
-The native Linux version is available in the [linux](https://github.com/a2x/cs2-dumper/tree/linux) branch (currently
-outdated).
+Repository goal:
+- keep offsets up to date as Valve updates CS2,
+- keep output deterministic and automation-friendly,
+- offer a GitHub-style workflow for regular updates.
 
-For a work-in-progress offline version, check out the [cs2-analyzer](https://github.com/a2x/cs2-analyzer) repository or
-view its included web demo [here](https://a2x.github.io/cs2-analyzer).
+---
 
-## Getting Started
+## Key Features
 
-You can download the latest release from [Releases](https://github.com/a2x/cs2-dumper/releases) or compile it yourself.
-Note that compiling it yourself requires your Rust compiler version to be at least 1.74.0 or newer.
+- **Single workflow to get your own offsets**
+  - run once locally, generate fresh offsets without waiting for third parties.
+- **Cross-platform runtime**
+  - Windows and Linux support via `memflow` connectors.
+- **Structured output**
+  - produces `json`, `hpp`, `cs`, `rs`, and `zig` artifacts by default.
+- **CI-ready**
+  - GitHub Actions workflow for build/release packaging.
 
-## Usage
+---
 
-1. Ensure the game is running (Being in the main menu should suffice).
-2. Run the `cs2-dumper` executable.
+## Quick Start
 
-_Note:_ If you run the executable without specifying an optional memflow connector name, it will automatically use the
-[memflow-native](https://github.com/memflow/memflow-native) OS layer to read the memory of the game process. If you
-wish to use an existing memflow connector instead, such as **pcileech** or **kvm**, you can pass the `connector` and
-optional `connector-args` arguments to the program. These connectors can be installed and managed using
-the [memflowup](https://github.com/memflow/memflowup) tool.
+### 1) Download or build locally
+- Download a built binary from [GitHub Releases](https://github.com/YOUR_GITHUB_USERNAME/current-cs2-offsets/releases) (once published).
+- Or build from source with Rust 1.74.0+.
 
-E.g (for pcileech). `cs2-dumper -c pcileech -a :device=FPGA -vv`
+### 2) Run
+Run from the project root while CS2 is open (main menu is enough):
 
-Certain connectors, such as the [kvm](https://github.com/memflow/memflow-kvm) connector on Linux or
-the [pcileech](https://github.com/memflow/memflow-pcileech) / [winio](https://github.com/a2x/memflow-winio)
-connectors on Windows, require elevated privileges to work. So either run the `cs2-dumper` executable with `sudo` on
-Linux or as an administrator on Windows.
+```bash
+cargo run --release
+```
 
-### Available Arguments
+Or run the compiled binary:
 
-- `-c, --connector <connector>`: The name of the memflow connector to use.
-- `-a, --connector-args <connector-args>`: Additional arguments to pass to the memflow connector.
-- `-f, --file-types <file-types>`: The types of files to generate. Default: `cs`, `hpp`,  `json`, `rs`, `zig`.
-- `-i, --indent-size <indent-size>`: The number of spaces to use per indentation level. Default: `4`.
-- `-o, --output <output>`: The output directory to write the generated files to. Default: `output`.
-- `-p, --process-name <process-name>`: The name of the game process. Default: `cs2.exe`.
-- `-v...`: Increase logging verbosity. Can be specified multiple times.
-- `-h, --help`: Print help.
-- `-V, --version`: Print version.
+```bash
+./target/release/cs2-dumper
+```
 
-## Running Tests
+### 3) Output
+By default, all generated files are written to `./output`.
 
-To run the few basic provided tests, use the following command: `cargo test -- --nocapture`.
+---
+
+## Output Artifacts
+
+The dumper writes multiple formats for different consumers:
+
+- `json` — ready-to-consume runtime offset object
+- `hpp` — C++ header
+- `cs` — C# classes/consts
+- `rs` — Rust const modules
+- `zig` — Zig source
+
+### Example structure (JSON)
+
+```json
+{
+  "client.dll": {
+    "dwCSGOInput": 33949395,
+    "dwEntityList": 35322339,
+    "dwGameEntitySystem": 35346515
+  }
+}
+```
+
+This is exactly the format you asked for: module names at top level and a `dw...` key/value map per module.
+
+---
+
+## CLI Overview
+
+`cs2-dumper` supports:
+- `-c, --connector <connector>` (optional): memflow connector name.
+- `-a, --connector-args <connector-args>` (optional): connector arguments.
+- `-f, --file-types <file-types>`: generated formats.
+- `-i, --indent-size <indent-size>`: JSON indentation.
+- `-o, --output <output>`: output directory (default `output`).
+- `-p, --process-name <process-name>`: target process (default `cs2.exe`).
+- `-v...`: increase verbosity.
+- `-h, --help` and `-V, --version`.
+
+---
+
+## Contributing
+
+- Keep commits focused and include output format impact in your commit message.
+- Update signatures/output schema together so automation stays deterministic.
+- Add tests for formatting and critical parser assumptions when changing core dump behavior.
 
 ## License
 
-Licensed under the MIT license ([LICENSE](./LICENSE)).
+MIT License. See [LICENSE](./LICENSE).
