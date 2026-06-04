@@ -28,40 +28,32 @@ Repository goal:
 
 ## Quick Start
 
-### 1) Download or build locally
-- Download a built binary from [GitHub Releases](https://github.com/YOUR_GITHUB_USERNAME/cs2-current-offsets-and-self-dump-option/releases) (once published).
-- Or build from source with Rust 1.74.0+.
+### 1) Wie du die Offsets nutzt
 
-### 2) Run
-Run from the project root while CS2 is open (main menu is enough):
+**Option A: Aktuelle Offsets kopieren**
+- Schau in deinem Cheat nach, welche Dateiformate du brauchst (z.B. `json`, `hpp`, `cs`, etc.)
+- Kopiere die entsprechenden Dateien aus dem `output`-Verzeichnis dieses Projekts
+- Integriere sie direkt in deinen Cheat
 
-```bash
-cargo run --release
-```
-
-Or run the compiled binary:
-
-```bash
-./target/release/cs2-dumper
-```
-
-### 3) Output
-By default, all generated files are written to `./output`.
+**Option B: Offsets selbst dumpen**
+- Du möchtest die neuesten Offsets selbst generieren? Kein Problem!
+- Folge den Anweisungen unten und führe den Dumper selbst aus
 
 ---
 
 ## Output Artifacts
 
-The dumper writes multiple formats for different consumers:
+Der Dumper generiert mehrere Formate für verschiedene Anwendungen:
 
-- `json` — ready-to-consume runtime offset object
+- `json` — runtime offset object (am häufigsten verwendet)
 - `hpp` — C++ header
 - `cs` — C# classes/consts
 - `rs` — Rust const modules
 - `zig` — Zig source
-- `json` (`offsets.json`) fields map 1:1 to `dw` patterns used by many CS2 tooling projects, including [`Enoouo/Pro-CS2_DMA`](https://github.com/Enoouo/Pro-CS2_DMA).
 
-### Example structure (JSON)
+Die `json`-Dateien (`offsets.json`) sind vollständig kompatibel mit häufig verwendeten CS2-Tools wie [`Enoouo/Pro-CS2_DMA`](https://github.com/Enoouo/Pro-CS2_DMA).
+
+### Beispiel-Struktur (JSON)
 
 ```json
 {
@@ -73,21 +65,45 @@ The dumper writes multiple formats for different consumers:
 }
 ```
 
-This is exactly the format you asked for: module names at top level and a `dw...` key/value map per module.
+Die Module und `dw...` keys entsprechen dem Standard-Format, das die meisten Tools erwarten.
 
 ---
 
-## CLI Overview
+## Offsets selbst dumpen
 
-`cs2-dumper` supports:
+### 1) Binary herunterladen oder bauen
+- Lade ein fertiges Binary aus den [GitHub Releases](https://github.com/weikiboy-tech/Cs2-current-OFFSETS-and-self-dump-option-/releases) herunter.
+- Oder baue es selbst mit Rust 1.74.0+.
+
+### 2) Ausführen
+Starte CS2 (Hauptmenü reicht aus) und führe den Dumper aus:
+
+```bash
+cargo run --release
+```
+
+Oder nutze das kompilierte Binary:
+
+```bash
+./target/release/cs2-dumper
+```
+
+### 3) Output
+Alle generierten Dateien landen im `./output`-Verzeichnis.
+
+---
+
+## CLI Übersicht
+
+`cs2-dumper` unterstützt folgende Optionen:
 - `-c, --connector <connector>` (optional): memflow connector name.
 - `-a, --connector-args <connector-args>` (optional): connector arguments.
-- `-f, --file-types <file-types>`: generated formats.
-- `-i, --indent-size <indent-size>`: JSON indentation.
+- `-f, --file-types <file-types>`: generierte Formate.
+- `-i, --indent-size <indent-size>`: JSON Einrückung.
 - `-o, --output <output>`: output directory (default `output`).
 - `-p, --process-name <process-name>`: target process (default `cs2.exe`).
-- `-v...`: increase verbosity.
-- `-h, --help` and `-V, --version`.
+- `-v...`: erhöhe die Verbosität.
+- `-h, --help` und `-V, --version`.
 
 ---
 
