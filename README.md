@@ -20,7 +20,7 @@ Repository goal:
 - **Structured output**
   - produces `json`, `hpp`, `cs`, `rs`, and `zig` artifacts by default.
 - **Drop-in compatible offsets**
-  - the generated JSON keys match common external consumer layouts and are ready for integration with projects like [`Enoouo/Pro-CS2_DMA`](https://github.com/Enoouo/Pro-CS2_DMA).
+  - the generated JSON keys match common external consumer layouts and are ready for integration with popular CS2 DMA projects.
 - **CI-ready**
   - GitHub Actions workflow for build/release packaging.
 
@@ -51,7 +51,11 @@ The dumper generates multiple formats for different use cases:
 - `rs` — Rust const modules
 - `zig` — Zig source
 
-The `json` files (`offsets.json`) are fully compatible with commonly used CS2 tools like [`Enoouo/Pro-CS2_DMA`](https://github.com/Enoouo/Pro-CS2_DMA).
+The `json` files (`offsets.json`) are fully compatible with commonly used CS2 tools like:
+- [`Enoouo/Pro-CS2_DMA`](https://github.com/Enoouo/Pro-CS2_DMA)
+- [`KEV0143/Direct-memory-access-CS2-DMA`](https://github.com/KEV0143/Direct-memory-access-CS2-DMA)
+
+Just copy the generated JSON offsets directly into your project's offset files!
 
 ### Example Structure (JSON)
 
