@@ -6,6 +6,9 @@ on:
       - main
     tags:
       - "v*"
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -28,15 +31,18 @@ jobs:
 
       - name: Prepare Windows bundle
         run: |
-          New-Item -ItemType Directory -Force -Path SELF OFFSET DUMPER
-          Copy-Item target/release/cs2-dumper.exe -Destination SELF OFFSET DUMPER/
+          $bundlePath = 'SELF OFFSET DUMPER'
+          New-Item -ItemType Directory -Force -Path $bundlePath
+          Copy-Item -LiteralPath 'target/release/cs2-dumper.exe' -Destination (Join-Path $bundlePath 'cs2-dumper.exe') -Force
         shell: powershell
 
       - name: Create distributable archive
         run: |
-          New-Item -ItemType Directory -Force -Path publish
-          Copy-Item SELF OFFSET DUMPER/* -Destination publish/ -Recurse -Force
-          Compress-Archive -Path publish/* -DestinationPath publish/current-cs2-offsets-windows.zip
+          $bundlePath = 'SELF OFFSET DUMPER'
+          $publishPath = 'publish'
+          New-Item -ItemType Directory -Force -Path $publishPath
+          Copy-Item -LiteralPath (Join-Path $bundlePath 'cs2-dumper.exe') -Destination $publishPath -Force
+          Compress-Archive -LiteralPath (Join-Path $publishPath 'cs2-dumper.exe') -DestinationPath (Join-Path $publishPath 'current-cs2-offsets-windows.zip') -Force
         shell: powershell
 
       - name: Create GitHub release
