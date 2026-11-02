@@ -31,12 +31,13 @@ jobs:
 
       - name: Prepare Windows artifact folder
         run: |
-          New-Item -ItemType Directory -Force -Path SELF OFFSET DUMPER
-          Copy-Item target/release/cs2-dumper.exe -Destination SELF OFFSET DUMPER/
+          $bundlePath = 'SELF OFFSET DUMPER'
+          New-Item -ItemType Directory -Force -Path $bundlePath
+          Copy-Item -LiteralPath 'target/release/cs2-dumper.exe' -Destination (Join-Path $bundlePath 'cs2-dumper.exe') -Force
         shell: powershell
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: current-cs2-offsets-windows
-          path: SELF OFFSET DUMPER
+          path: "SELF OFFSET DUMPER/"
